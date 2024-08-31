@@ -27,7 +27,7 @@ export default function Header({page}) {
 
     const navigationNoUser = [
         { name: 'Home', href: '/siteTest/', current: page === 'Home' },
-        { name: 'Login', href: '/petAlert_deploy/login', current: page === 'Login' },
+        { name: 'Login', href: '/siteTest/login', current: page === 'Login' },
     ]
       
     const navigationLogin = [
