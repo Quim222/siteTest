@@ -6,6 +6,10 @@ import Home from './pages/home.jsx';
 import { StrictMode } from 'react';
 import Login from './pages/login.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Publication from './pages/publication.jsx';
+import HomeUser from './pages/HomeUser.jsx';
+import ProtectedRouter from './components/protectedRouter.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -17,7 +21,24 @@ const router = createBrowserRouter([
     path: '/siteTest/login',
     element: <Login />,
     errorElement: <NotFound />,
-  }
+  },
+  {
+    path: '/siteTest/home',
+    element: (
+      <ProtectedRouter>
+        <HomeUser />
+      </ProtectedRouter>
+    ),
+    children: [
+      {
+        path: '/siteTest/home/:pubID', // Rota relativa a /home
+        element: (
+          <ProtectedRouter>
+            <Publication />
+          </ProtectedRouter>),
+      },
+    ],
+  },
 ])
 
 createRoot(document.getElementById('root')).render(

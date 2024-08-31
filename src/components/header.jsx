@@ -13,7 +13,7 @@ const userInfo = {
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   }
   const userNavigation = [
-    { name: 'Your Profile', to: '/petAlert_deploy/profile' }, // Rota de exemplo
+    { name: 'Your Profile', to: '/siteTest/profile' }, // Rota de exemplo
     { name: 'Sign out'}, // Rota de logout
   ]
   
@@ -31,8 +31,8 @@ export default function Header({page}) {
     ]
       
     const navigationLogin = [
-        { name: 'Home', href: '/petAlert_deploy', current: page === 'Home' },
-        { name: 'Publications', href: '/petAlert_deploy/home', current: page === 'HomeUser' },
+        { name: 'Home', href: '/siteTest/', current: page === 'Home' },
+        { name: 'Publications', href: '/siteTest/home', current: page === 'HomeUser' },
     ]
 
 
