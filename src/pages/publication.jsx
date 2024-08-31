@@ -5,6 +5,16 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import L from 'leaflet';
 
+// Configura o ícone do marcador
+const customIcon = new L.Icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // URL pública para ícone do marcador
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png', // URL pública para sombra do marcador
+    shadowSize: [41, 41],
+});
+
 function FitBounds({ points }) {
     const map = useMap();
 
@@ -41,9 +51,8 @@ export default function Publication() {
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <FitBounds points={data} />
             {data.map((point, index) => (
-                <Marker key={index} position={[point.latitude, point.longitude]}>
+                <Marker key={index} position={[point.latitude, point.longitude]} icon={customIcon}>
                     <Popup>Ponto {index + 1}</Popup>
                 </Marker>
             ))}
