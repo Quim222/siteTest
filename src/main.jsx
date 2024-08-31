@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound.jsx';
 import Publication from './pages/publication.jsx';
 import HomeUser from './pages/HomeUser.jsx';
 import ProtectedRouter from './components/protectedRouter.jsx';
+import Profile from './pages/profile.jsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
           </ProtectedRouter>),
       },
     ],
+  },
+  {
+    path: '/siteTest/profile',
+    element: (
+      <ProtectedRouter>
+        <Profile />
+      </ProtectedRouter>
+    ),
   },
 ])
 
