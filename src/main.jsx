@@ -7,7 +7,7 @@ import { StrictMode } from 'react';
 
 const router = createBrowserRouter([
   {
-    path: '/petAlert/',
+    path: '/siteTest/',
     element: <Home />,
   }
 ])
