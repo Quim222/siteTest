@@ -13,7 +13,7 @@ import { useAnimalsUser, usePostsUserFound, usePostsUserMissing } from '../compo
 import "./css/scrollbarRight.css";
 import { CardAnimalUser, CardPostUser } from '../components/cardAnimalUser';
 import Swal from 'sweetalert2';
-// import Estatisticas from '../components/Estatisticas';
+import Estatisticas from '../components/Estatisticas';
 
 export default function Profile() {
   const [MissingState, setMissingState] = useState(true);
@@ -478,7 +478,7 @@ export default function Profile() {
         {user.tipoUser === 'admin' && (
           <div className='flex flex-col items-center justify-center mb-10'>
             <Typography variant='paragraph' color='gray'>Statistics</Typography>
-            {/* <Estatisticas /> */}
+            <Estatisticas />
           </div>
         )}
 
