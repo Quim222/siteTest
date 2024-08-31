@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { UserAuthContextProvider } from './components/UserAuthContext.jsx';
 import Home from './pages/home.jsx';
 import { StrictMode } from 'react';
