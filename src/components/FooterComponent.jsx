@@ -10,9 +10,9 @@ export default function FooterComponent() {
                 Usufruam o nosso site com segurança e respeito uns com os outros
             </Typography>
             <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-                <li><Link to={'/petAlert_deploy/about'} className="hover:underline me-4 md:me-6">About</Link></li>
-                <li><Link to={'/petAlert_deploy/feedback'} className="hover:underline me-4 md:me-6">FeedBack</Link></li>
-                <li><Link to={'/petAlert_deploy/contact'} className="hover:underline me-4 md:me-6">Contact</Link></li>
+                <li><Link to={'/siteTest/about'} className="hover:underline me-4 md:me-6">About</Link></li>
+                <li><Link to={'/siteTest/feedback'} className="hover:underline me-4 md:me-6">FeedBack</Link></li>
+                <li><Link to={'/siteTest/contact'} className="hover:underline me-4 md:me-6">Contact</Link></li>
             </ul>
         </div>
     </footer>

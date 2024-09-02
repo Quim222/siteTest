@@ -46,7 +46,7 @@ export default function DoughnutChart({ raceCounts }) {
   };
 
   return (
-    <div >
+    <div className="size-72">
       <Doughnut data={data} options={options} />
     </div>
   );

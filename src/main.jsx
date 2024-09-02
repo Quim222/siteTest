@@ -10,6 +10,9 @@ import Publication from './pages/publication.jsx';
 import HomeUser from './pages/HomeUser.jsx';
 import ProtectedRouter from './components/protectedRouter.jsx';
 import Profile from './pages/profile.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
+import Feedback from './pages/feedback.jsx';
 
 
 const router = createBrowserRouter([
@@ -48,6 +51,18 @@ const router = createBrowserRouter([
       </ProtectedRouter>
     ),
   },
+  {
+    path: '/siteTest/about',
+    element: <About />,
+  },
+  {
+    path: '/siteTest/contact',
+    element: <Contact />,
+  },
+  {
+    path: '/siteTest/feedback',
+    element: <Feedback />,
+  }
 ])
 
 createRoot(document.getElementById('root')).render(

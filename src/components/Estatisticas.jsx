@@ -3,6 +3,8 @@ import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { fetchAnimalData } from './DataFetchScreen';
 import { Database } from '../../firebase';
 import Bar from './bar';
+import BarChart from './barHorizontal';
+import { Typography } from '@material-tailwind/react';
 
 export default function Estatisticas() {
   const [raceData, setRaceData] = useState([]);
@@ -38,13 +40,20 @@ export default function Estatisticas() {
   }
 
   return (
-    <div className='mt-5 w-[100%] flex justify-between px-10 flex-col items-center gap-20 md:flex-row'>
-      <div className='w-[100%] md:w-[40%] '>
-        <h2>Breed Distribution</h2>
-        <Bar raceCounts={raceData} />
+    <div className='mt-5 w-[100%] flex justify-around px-10 flex-col items-center gap-20 xl:flex-row'>
+      <div className='w-[100%] md:w-[40%] flex justify-center items-center'>
+        {raceData.length > 0 ? (
+          <Bar raceCounts={raceData} />
+        ):(
+          <Typography className='text-center' color='gray'>No data available</Typography>
+        )}
       </div>
-      <div className='w-[100%] md:w-[40%] '>
-        {/* <BarHorizontal raceCounts={animalData} /> */}
+      <div className='w-[100%] md:w-[40%] flex justify-center items-center'>
+        {animalData.length > 0 ? (
+          <BarChart raceCounts={animalData} />
+        ):(
+          <Typography color='gray'>No data available</Typography>
+        )}
       </div>
     </div>
   );
