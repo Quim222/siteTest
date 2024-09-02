@@ -22,7 +22,7 @@ const ProtectedRouter = ({ children }) => {
     }
 
     if (!isAuthenticated && !user) {
-        return <Navigate to="/petAlert_deploy/login" />;
+        return <Navigate to="/siteTest/login" />;
     }
 
     return children;

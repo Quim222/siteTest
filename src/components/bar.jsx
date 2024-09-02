@@ -1,41 +1,53 @@
 import React from "react";
-import CanvasJSReact from '@canvasjs/react-charts';
-//var CanvasJSReact = require('@canvasjs/react-charts');
- 
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
-export default function Bar({ raceCounts }) {
-  
+// Registering necessary Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
+
+export default function DoughnutChart({ raceCounts }) {
+  // Transform raceCounts into data suitable for Chart.js
+  const data = {
+    labels: raceCounts.map((race) => race.name),
+    datasets: [
+      {
+        data: raceCounts.map((race) => race.count),
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+        ], // Customize as needed
+        hoverBackgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+        ],
+      },
+    ],
+  };
+
   const options = {
-    animationEnabled: true,
-    exportEnabled: true,
-    theme: "light2", // "light1", "dark1", "dark2"
-    title: {
-      text: "Most Breed Losts"
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Most Breed Losts',
+      },
     },
-    axisX: {
-      title: "Breed types",
-      reversed: true,
-    },
-    backgroundColor: "transparent",
-    axisY: {
-      title: "Number of Posts",
-      includeZero: true,
-    },
-    data: [{
-      type: "bar", // Change to "column" or "bar" if you want a bar chart
-      startAngle: 0,
-      dataPoints: raceCounts.map((race) => ({
-        y: race.count,  // Value for the chart
-        label: race.name // Label for the chart
-      }))
-    }]
   };
 
   return (
-    <div className="">
-      <CanvasJSChart options={options} />
+    <div >
+      <Doughnut data={data} options={options} />
     </div>
   );
 }
