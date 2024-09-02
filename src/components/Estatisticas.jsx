@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { fetchAnimalData } from './DataFetchScreen';
 import { Database } from '../../firebase';
-import Bar from './bar';
+// import Bar from './bar';
 
 export default function Estatisticas() {
   const [raceData, setRaceData] = useState([]);
@@ -41,7 +41,7 @@ export default function Estatisticas() {
     <div className='mt-5 w-[100%] flex justify-between px-10 flex-col items-center gap-20 md:flex-row'>
       <div className='w-[100%] md:w-[40%] '>
         <h2>Breed Distribution</h2>
-        <Bar raceCounts={raceData} />
+        {/* <Bar raceCounts={raceData} /> */}
       </div>
       <div className='w-[100%] md:w-[40%] '>
         {/* <BarHorizontal raceCounts={animalData} /> */}
