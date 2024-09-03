@@ -80,7 +80,7 @@ export default function About() {
                     <Typography className='font-poppins' variant='p' color='gray' size='base' bold>
                         If you want to use more of our project, you can download our application. <br />
                     </Typography>
-                    <a href="../../app-release.apk" download className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 text-center w-[60%] md:w-[40%]">
+                    <a href={'/siteTest/assets/app-release.apk'} download className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 text-center w-[60%] md:w-[40%]">
                         Download App
                     </a>
                 </div>
