@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../components/UserAuthContext";
 import icon from "../assets/PETALERT.png"
+import { CiUser } from "react-icons/ci";
 
 
 const userInfo = {
@@ -133,20 +134,12 @@ export default function Header({page}) {
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <img alt="" src={userInfo.imageUrl} className="h-10 w-10 rounded-full" />
+                  <CiUser size={23}/>
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-black">{userInfo.name}</div>
-                  <div className="text-sm font-medium leading-none text-white">{userInfo.email}</div>
+                  <div className="text-base font-medium leading-none text-black">{user?.name? user?.name : 'Anonymous'}</div>
+                  <div className="text-sm font-medium leading-none text-white">{user?.email? user?.email : ''}</div>
                 </div>
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-black hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon aria-hidden="true" className="h-6 w-6" />
-                </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (

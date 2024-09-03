@@ -367,7 +367,7 @@ export default function Profile() {
                     <div className='flex flex-col gap-16 lg:flex-row lg:px-10'>
                       <div className='flex flex-col gap-2 flex-1'>
                         <Typography className='font-medium' variant='paragraph' color='gray'>Contact</Typography>
-                        <Input className='shadow w-full' type='tel' color='gray' label='Contact' value={contact} onChange={(e) => {setContact(e.target.value)}} />
+                        <Input maxLength={9} className='shadow w-full' type='tel' color='gray' label='Contact' value={contact} onChange={(e) => {setContact(e.target.value)}} />
                       </div>
                       <div className='flex flex-col gap-2 flex-1'>
                         <Typography className='font-medium' variant='paragraph' color='gray'>Place</Typography>

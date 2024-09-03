@@ -101,7 +101,7 @@ export function CardAnimalUser({item}) {
     
         // Verifica se os campos obrigatórios estão preenchidos
         if (!nomeAnimal || !racaAnimal) {
-            Swal.fire("Aviso", "Por favor, preencha todos os campos antes de salvar.");
+            Swal.fire("Warning", "Please fill in all required fields.", "warning");
             return;
         }
     
@@ -155,7 +155,7 @@ export function CardAnimalUser({item}) {
             }, 1000);
         } catch (error) {
             console.error('Erro ao alterar o animal:', error);
-            Swal.fire("Erro", "Erro ao alterar o animal. Tente novamente."+error);
+            Swal.fire("Error", "An error occurred while changing the animal.", "error");
         }
     };
     
@@ -166,8 +166,8 @@ export function CardAnimalUser({item}) {
         <div ref={containerRef} className="m-3 border p-4 border-white rounded-xl shadow-lg flex flex-col">
             <div className='w-full flex items-center'>
                 <div className='w-[60%]'>
-                    <Typography className="truncate w-full" color="gray">Nome: {item.nomeAnimal}</Typography>
-                    <Typography className="truncate w-full" color="gray">Raça: {item.racaAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Name: {item.nomeAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Breed: {item.racaAnimal}</Typography>
                     <Typography className="truncate w-full" color="gray">Code: {item.Microchip}</Typography>
                 </div>
                 <div className='flex justify-center items-center w-[40%]'>
@@ -263,11 +263,11 @@ export function CardPostUser({ item }) {
                 const city = data.address.city || data.address.town || data.address.village || data.address.state;
                 setLocationCity(city);
             } else {
-                alert('Erro: Nenhum endereço encontrado para essas coordenadas.');
+                Swal('Error', 'Unable to fetch address.', 'error');
             }
         } catch (error) {
             console.error(error);
-            alert('Erro: Falha ao buscar o endereço.');
+            Swal('Error', 'Unable to fetch address.', 'error');
         } finally {
             setLoading(false); // Termina o carregamento
         }
@@ -305,11 +305,11 @@ export function CardPostUser({ item }) {
         >
             <div className={`flex flex-col lg:flex-row m-3 gap-3 items-center ${item.estado == 'Missing' && "cursor-pointer"}`}>
                 <div className='w-full lg:w-[60%]'>
-                    <Typography className="truncate w-full" color="gray">Nome: {item.nomeAnimal}</Typography>
-                    <Typography className="truncate w-full" color="gray">Raça: {item.racaAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Name: {item.nomeAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Breed: {item.racaAnimal}</Typography>
                     <Typography className="truncate w-full" color="gray">Code: {item.Microchip}</Typography>
                     {item.localizacao && (
-                        <Typography className="truncate w-full" color="gray">Localização: {locationCity}</Typography>
+                        <Typography className="truncate w-full" color="gray">Location: {locationCity}</Typography>
                     )}
                 </div>
                 <div className='flex justify-center items-center w-full lg:w-[40%]'>

@@ -35,8 +35,9 @@ export default function Publication() {
     const [selectedMarker, setSelectedMarker] = useState(null);
     const { data, loading } = useRouteAnimal(someData[pubID]?.id || null);
 
+
     if (loading) {
-        return <p>Carregando...</p>;
+        return <p>Loading...</p>;
     }
 
     if (!data || data.length === 0) {
@@ -53,7 +54,7 @@ export default function Publication() {
             />
             {data.map((point, index) => (
                 <Marker key={index} position={[point.latitude, point.longitude]} icon={customIcon}>
-                    <Popup>Ponto {index + 1}</Popup>
+                    <Popup>Point {index + 1}</Popup>
                 </Marker>
             ))}
             {data.length > 1 && (

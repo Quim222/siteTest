@@ -42,7 +42,7 @@ export default function CardCustom({index, data, onClick }) {
             className='bg-[#f5f5f5]  p-4 rounded-lg flex flex-col gap-2 cursor-pointer hover:shadow-xl transition-shadow duration-300'
             >            
             <Typography variant='h1' className='text-2xl font-normal'>
-                Publicação de {data.nomeUser}
+                {data.nomeUser} Publication
             </Typography>
             <div className='flex flex-col gap-10 mi:flex-row justify-center items-center'>
                 <div className='flex justify-center mi:justify-end'>
@@ -53,9 +53,9 @@ export default function CardCustom({index, data, onClick }) {
                     />
                 </div>
                 <div className='flex flex-col justify-center items-center border-t-2 border-t-orange-400 border-b-2 border-b-orange-400 rounded-sm w-[70%]'>
-                    <Typography className="truncate w-full">Nome: {data.nomeAnimal}</Typography>
-                    <Typography className="truncate w-full">Raça: {data.racaAnimal}</Typography>
-                    <Typography className="truncate w-full">Localização: {address}</Typography>
+                    <Typography className="truncate w-full">Name: {data.nomeAnimal}</Typography>
+                    <Typography className="truncate w-full">Breed: {data.racaAnimal}</Typography>
+                    <Typography className="truncate w-full">Location: {address}</Typography>
                     <Typography className="truncate w-full">Microchip: {data.Microchip}</Typography>
                 </div>
 

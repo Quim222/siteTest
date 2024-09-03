@@ -32,8 +32,8 @@ export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
         await removerImagem(imagem);
 
         Swal.fire({
-            title: 'Sucesso',
-            text: 'Animal removido com sucesso',
+            title: 'Success',
+            text: 'Animal delete with success',
             icon: 'success',
             confirmButtonText: 'OK',
         }).then((result) => {
@@ -43,7 +43,7 @@ export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
         });
     } catch (error) {
         console.error("Erro ao remover animais: ", error);
-        Swal.fire('Error', 'Erro ao remover animais.'+error, 'error');
+        Swal.fire("Error", "Error deleting animals", "error");
     }
 };
 
@@ -73,7 +73,7 @@ export const removerPublicaçao = async (nomeAnimal, RacaAnimal,id) => {
         
     } catch (error) {
         console.error("Erro ao remover publicação: ", error);
-        Swal.fire('Error', 'Erro ao remover publicação.', 'error');
+        Swal.fire('Error', 'Error deleting publication', 'error');
     }
 };
 
@@ -99,7 +99,7 @@ export const removerImagem = async (fileURL) => {
         console.log('Arquivo removido com sucesso');
     } catch (error) {
         console.error('Erro ao remover o arquivo:', error);
-        Swal.fire('Error', 'Erro ao remover o arquivo.', 'error');
+        Swal.fire('Error', 'Error deleting image', 'error');
     }
 };
 
