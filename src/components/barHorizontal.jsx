@@ -33,7 +33,7 @@ export default function BarChart({ raceCounts }) {
   };
 
   const options = {
-    indexAxis: "y", // This makes the bars horizontal
+    indexAxis: "y",
     responsive: true,
     plugins: {
       legend: {
@@ -46,21 +46,25 @@ export default function BarChart({ raceCounts }) {
     },
     scales: {
       x: {
-        beginAtZero: true, // Start the x-axis at 0
+        beginAtZero: true,
         title: {
           display: true,
           text: "Number of Animals",
         },
       },
       y: {
-        beginAtZero: true, // Start the y-axis at 0
+        beginAtZero: true,
         title: {
           display: true,
           text: "Number of Users",
         },
+        ticks: {
+          stepSize: 1, // Garante que cada valor seja exibido
+        },
       },
     },
   };
+  
 
   return (
     <div>

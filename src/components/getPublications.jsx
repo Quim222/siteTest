@@ -20,6 +20,7 @@ export const useGetPublications = (estado) => {
                 imagem: doc.data().imagem,
                 userUid: doc.data().UserUid,
                 Estado: doc.data().Estado,
+                Microchip: doc.data().Microchip,
             }));
 
             setDados(data);

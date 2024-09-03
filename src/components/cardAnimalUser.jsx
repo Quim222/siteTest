@@ -13,7 +13,7 @@ import {
   } from "@material-tailwind/react";
 import { dogBreeds, catBreeds, birdBreeds, rabbitBreeds, reptileBreeds, rodentBreeds, fishBreeds, ferretBreeds, pigBreeds, goatBreeds, horseBreeds, exoticInsects, amphibianBreeds, chickenBreeds, sheepBreeds, duckBreeds, gooseBreeds, lostAnimalTypes } from '../utils/breedsData';
 import Swal from 'sweetalert2';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { Database } from '../../firebase';
 
 
@@ -25,6 +25,7 @@ export function CardAnimalUser({item}) {
     const [nomeAnimal, setNomeAnimal] = useState(item.nomeAnimal);
     const [racaAnimal, setRacaAnimal] = useState(item.racaAnimal);
     const [success, setSuccess] = useState(false);
+    const [microchip, setMicrochip] = useState(item.Microchip);
  
     const handleOpen = () => setOpen(!open);
 
@@ -110,24 +111,54 @@ export function CardAnimalUser({item}) {
     
             // Realiza o update do documento com os novos dados
             await updateDoc(docData, {
-                NomeAnimal: nomeAnimal,  // Note que o nome da chave deve ser consistente com o campo no Firestore
+                NomeAnimal: nomeAnimal,  // Certifique-se de que está usando o mesmo nome de campo no Firestore
                 RacaAnimal: racaAnimal,  // Certifique-se de que está usando o mesmo nome de campo no Firestore
+                Microchip: microchip
             });
+    
+            // Cria a query para buscar os documentos na coleção 'Post'
+            const docPostQuery = query(
+                collection(Database, 'Post'),
+                where('NomeAnimal', '==', item.nomeAnimal),
+                where('RacaAnimal', '==', item.racaAnimal),
+                where('UserUid', '==', item.userUid)
+            );
+
+            console.log(docPostQuery);
+            console.log(item.nomeAnimal);
+            console.log(item.racaAnimal);
+            console.log(item.userUid);
+    
+            const getDocPost = await getDocs(docPostQuery);
+    
+            // Atualiza todos os documentos encontrados
+            const updatePromises = getDocPost.docs.map((doc) =>
+                updateDoc(doc.ref, {
+                    NomeAnimal: nomeAnimal,
+                    RacaAnimal: racaAnimal,
+                    Microchip: microchip
+                })
+            );
+    
+            // Espera todas as atualizações serem concluídas
+            await Promise.all(updatePromises);
     
             // Exibe uma mensagem de sucesso
             setSuccess(true);
-
+    
             // Após 1 segundo, chama handleOpen()
             setTimeout(() => {
                 handleOpen(); // Fecha o modal (ou abre, dependendo da lógica de handleOpen)
                 setSuccess(false); // Reseta o estado de sucesso
+                e.target.reset(); // Reseta o formulário
                 window.location.reload(); // Recarrega a página
             }, 1000);
         } catch (error) {
             console.error('Erro ao alterar o animal:', error);
-            Swal.fire("Erro", "Erro ao alterar o animal. Tente novamente.");
+            Swal.fire("Erro", "Erro ao alterar o animal. Tente novamente."+error);
         }
     };
+    
     
     
 
@@ -137,6 +168,7 @@ export function CardAnimalUser({item}) {
                 <div className='w-[60%]'>
                     <Typography className="truncate w-full" color="gray">Nome: {item.nomeAnimal}</Typography>
                     <Typography className="truncate w-full" color="gray">Raça: {item.racaAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Code: {item.Microchip}</Typography>
                 </div>
                 <div className='flex justify-center items-center w-[40%]'>
                     <img src={item.imagem} className='rounded-md' alt="Imagem do animal" />
@@ -144,7 +176,7 @@ export function CardAnimalUser({item}) {
             </div>
             {isHovering && 
                 <div className='p-4 flex justify-evenly items-center border border-white m-2 rounded-lg'>
-                    <Button onClick={() => {removerAnimal(item.nomeAnimal,item.racaAnimal,item.imagem)}} className='bg-red-500 text-white p-2 rounded-md'>Remove</Button>
+                    <Button onClick={() => {removerAnimal(item.nomeAnimal,item.racaAnimal,item.imagem, user.uid)}} className='bg-red-500 text-white p-2 rounded-md'>Remove</Button>
                     <Button onClick={() => handleOpen()} className='bg-orange-400 text-white p-2 rounded-md'>Change</Button>
                 </div>
             }
@@ -166,6 +198,16 @@ export function CardAnimalUser({item}) {
                             onChange={(e) => setNomeAnimal(e.target.value)} 
                             value={nomeAnimal} 
                             label="Name" 
+                            size="lg" 
+                        />
+                        <Typography className="-mb-2" variant="h6">
+                            Code Microchip
+                        </Typography>
+                        <Input 
+                            onChange={(e) => setMicrochip(e.target.value)} 
+                            value={microchip} 
+                            label="Microchip" 
+                            maxLength={15}
                             size="lg" 
                         />
                         <Typography className="-mb-2" variant="h6">
@@ -265,6 +307,7 @@ export function CardPostUser({ item }) {
                 <div className='w-full lg:w-[60%]'>
                     <Typography className="truncate w-full" color="gray">Nome: {item.nomeAnimal}</Typography>
                     <Typography className="truncate w-full" color="gray">Raça: {item.racaAnimal}</Typography>
+                    <Typography className="truncate w-full" color="gray">Code: {item.Microchip}</Typography>
                     {item.localizacao && (
                         <Typography className="truncate w-full" color="gray">Localização: {locationCity}</Typography>
                     )}

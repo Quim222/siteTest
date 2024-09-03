@@ -48,7 +48,7 @@ export default function Estatisticas() {
           <Typography className='text-center' color='gray'>No data available</Typography>
         )}
       </div>
-      <div className='w-[100%] md:w-[40%] flex justify-center items-center'>
+      <div className=''>
         {animalData.length > 0 ? (
           <BarChart raceCounts={animalData} />
         ):(

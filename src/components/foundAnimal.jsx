@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
 import { Database } from "../../firebase";
 import Swal from "sweetalert2";
 
@@ -10,7 +10,9 @@ export const handleFound = async (id) => {
         if (postSnapshot.exists()) {
             await updateDoc(docRef, {
                 Estado: "Found",
-                Localizacao: ""
+                Localizacao: "",
+                Raio: 0,
+                time: Timestamp.now().toDate()
             });
         } else {
             Swal.fire("Error", "Post not found!", "error");

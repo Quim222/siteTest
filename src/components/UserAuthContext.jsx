@@ -27,6 +27,11 @@ export function UserAuthContextProvider({ children }) {
 
     async function signUp(email, pass, utilizador, contacto, localidade) {
         try {
+
+            if(!email || !pass || !utilizador || !contacto || !localidade) {
+              return {success: false, msg: 'Missing parameters'};
+            }
+
             const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, pass);
             console.log('response: ' ,response);
       
@@ -44,6 +49,7 @@ export function UserAuthContextProvider({ children }) {
               Coordenades: coords,
               TipoUser: "normal",
               uid: uid,
+              fcmToken: "",
             });
       
             
@@ -56,6 +62,7 @@ export function UserAuthContextProvider({ children }) {
             if (msg.includes('(auth/missing-password)')) msg = 'Missing password';
             if (msg.includes('(auth/wrong-password)')) msg = 'Wrong password';
             if (msg.includes('(auth/too-many-requests)')) msg = 'Too many requests, try again later';
+            if (msg.includes('(auth/weak-password)')) msg = 'Password too weak, at least 6 characters';
             return {success: false, msg};
           }
     }

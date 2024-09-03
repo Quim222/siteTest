@@ -17,6 +17,8 @@ export const useAnimalsUser = (uid) => {
                 racaAnimal: doc.data().RacaAnimal,
                 imagem: doc.data().imagem,
                 tipo: doc.data().TipoAnimal,
+                Microchip: doc.data().Microchip,
+                userUid: doc.data().UserUid,
             }));
             setDadosAnimais(data);
             setLoading(false);
@@ -47,6 +49,7 @@ export const usePostsUserMissing = (uid) => {
                 imagem: doc.data().imagem,
                 localizacao: doc.data().Localizacao,
                 estado: doc.data().Estado,
+                Microchip: doc.data().Microchip,
             }));
             setDadosPost(data);
             setLoading(false);
@@ -84,6 +87,7 @@ export const usePostsUserFound = (uid) => {
                 imagem: doc.data().imagem,
                 localizacao: doc.data().Localizacao,
                 estado: doc.data().Estado,
+                Microchip: doc.data().Microchip,
             }));
             setDadosPost(data);
             setLoading(false);

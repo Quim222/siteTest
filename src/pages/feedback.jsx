@@ -35,7 +35,7 @@ export default function Feedback() {
         feedback: feedback,
       });
       alert('Feedback submitted successfully');
-      navigate('/');
+      navigate('/siteTest');
     } catch (error) {
       alert('Error in submitting feedback');
     }

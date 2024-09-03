@@ -88,11 +88,11 @@ export default function Login() {
           <Form onSubmit={handleSignUp} action="#">
             <h1 className='text-2xl'>Create Account</h1>
             {error && <h3 variant="danger">{error}</h3>}
-            <input type="text" placeholder="Name" onChange={(e) => setNome(e.target.value)}/>
-            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password" onChange={(e) => setPass(e.target.value)}/>
-            <input type="text" placeholder="Localidade" onChange={(e) => setLocalidade(e.target.value)}/>
-            <input type="tel" placeholder="Telefone" maxLength={9} onChange={(e) => setTelefone(e.target.value)}/>
+            <input required type="text" placeholder="Name" onChange={(e) => setNome(e.target.value)}/>
+            <input required type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+            <input required type="password" placeholder="Password" onChange={(e) => setPass(e.target.value)}/>
+            <input required type="text" placeholder="Localidade" onChange={(e) => setLocalidade(e.target.value)}/>
+            <input required type="tel" placeholder="Telefone" maxLength={9} onChange={(e) => setTelefone(e.target.value)}/>
             <div className='flex flex-col gap-4 w-full items-center mt-4 md:justify-around md:flex-row'>
               <button>Sign Up</button>
               <Link id='link' style={{color: 'white'}} to={'/siteTest/'}>Back</Link>

@@ -12,10 +12,12 @@ import dogs5 from "../assets/dogWithWood.jpg"
 import Header from '../components/header';
 import dogs6  from "../assets/dogs2.jpeg"
 import emailjs from '@emailjs/browser'
+import { useNavigate } from 'react-router-dom';
 
 export default function Contact() {
     const { user } = useUserAuth();
     const form = useRef();
+    const navigate = useNavigate();
 
     
     useEffect(() => {
@@ -41,13 +43,15 @@ export default function Contact() {
         .then(
             () => {
             console.log('SUCCESS!');
+            navigate('/siteTest');
+            e.target.reset();
             },
             (error) => {
             console.log('FAILED...', error.text);
             },
         );
 
-        e.target.reset();
+        
     
         
     };

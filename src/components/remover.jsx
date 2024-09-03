@@ -20,7 +20,7 @@ export const removerMensagem = async (router) => {
 };
 
 // Função para remover um animal específico da coleção "AnimalsUser"
-export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem) => {
+export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
     try {
         const q = query(collection(Database, 'AnimalsUser'), where('NomeAnimal', '==', nomeAnimal), where('RacaAnimal', '==', RacaAnimal));
         const querySnapshot = await getDocs(q);
@@ -28,11 +28,19 @@ export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem) => {
         const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
         await Promise.all(deletePromises);
 
-        await removerPublicaçao(nomeAnimal, RacaAnimal);
+        await removerPublicaçao(nomeAnimal, RacaAnimal,id);
         await removerImagem(imagem);
 
-        Swal.fire('Success', 'Animais removidos com sucesso.', 'success');
-        window.location.reload();
+        Swal.fire({
+            title: 'Sucesso',
+            text: 'Animal removido com sucesso',
+            icon: 'success',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload(); // Recarrega a página
+            }
+        });
     } catch (error) {
         console.error("Erro ao remover animais: ", error);
         Swal.fire('Error', 'Erro ao remover animais.'+error, 'error');
@@ -40,13 +48,27 @@ export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem) => {
 };
 
 // Função para remover uma publicação específica da coleção "Post"
-export const removerPublicaçao = async (nomeAnimal, RacaAnimal) => {
+export const removerPublicaçao = async (nomeAnimal, RacaAnimal,id) => {
     try {
-        const q = query(collection(Database, 'Post'), where('NomeAnimal', '==', nomeAnimal), where('RacaAnimal', '==', RacaAnimal));
+        const q = query(collection(Database, 'Post'), where('NomeAnimal', '==', nomeAnimal), where('RacaAnimal', '==', RacaAnimal), where('UserUid','==',id));
         const querySnapshot = await getDocs(q);
 
-        const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
-        await Promise.all(deletePromises);
+        for (const docSnapshot of querySnapshot.docs) {
+            const docRef = docSnapshot.ref;
+
+            const docData = docSnapshot.data();
+            if (docData.Estado === 'Missing') {
+                // Subcoleção que você deseja excluir
+                const subCollectionRef = collection(docRef, 'routeAnimal'); // substitua 'subCollectionName' pelo nome da sua subcoleção
+
+                // Busca e exclui todos os documentos da subcoleção
+                const subCollectionSnapshot = await getDocs(subCollectionRef);
+                const deleteSubCollectionPromises = subCollectionSnapshot.docs.map(subDoc => deleteDoc(subDoc.ref));
+                await Promise.all(deleteSubCollectionPromises);
+            }
+            // Depois de excluir todos os documentos da subcoleção, exclua o documento principal
+            await deleteDoc(docRef);
+        }
 
         
     } catch (error) {
