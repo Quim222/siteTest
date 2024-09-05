@@ -46,7 +46,7 @@ export function UserAuthContextProvider({ children }) {
               Email: email,
               Contacto: contacto,
               Localidade: localidade,
-              Coordenades: coords,
+              Coordenadas: coords,
               TipoUser: "normal",
               uid: uid,
               fcmToken: "",
@@ -121,7 +121,7 @@ export function UserAuthContextProvider({ children }) {
                   tipoUser: userData.TipoUser,
                   localidade: userData.Localidade,
                   contacto: userData.Contacto,
-                  coordenadas: userData.Coordenades,
+                  coordenadas: userData.Coordenadas,
               }));
           } else {
               console.log("No matching documents.");
