@@ -1,6 +1,6 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { UserAuthContextProvider } from './components/UserAuthContext.jsx';
 import Home from './pages/home.jsx';
 import { StrictMode } from 'react';
@@ -14,8 +14,7 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Feedback from './pages/feedback.jsx';
 
-
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/siteTest/',
     element: <Home />,
@@ -39,7 +38,8 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRouter>
             <Publication />
-          </ProtectedRouter>),
+          </ProtectedRouter>
+        ),
       },
     ],
   },
@@ -62,13 +62,13 @@ const router = createBrowserRouter([
   {
     path: '/siteTest/feedback',
     element: <Feedback />,
-  }
-])
+  },
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserAuthContextProvider>
       <RouterProvider router={router} />
     </UserAuthContextProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
