@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { UserAuthContextProvider } from './components/UserAuthContext.jsx';
 import Home from './pages/home.jsx';
 import { StrictMode } from 'react';
@@ -15,6 +15,10 @@ import Contact from './pages/Contact.jsx';
 import Feedback from './pages/feedback.jsx';
 
 const router = createHashRouter([
+  {
+    path: '/',
+    element: <Navigate to="/siteTest/" replace />, // Redireciona o caminho raiz para /siteTest/
+  },
   {
     path: '/siteTest/',
     element: <Home />,
