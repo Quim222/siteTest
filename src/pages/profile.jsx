@@ -77,6 +77,7 @@ export default function Profile() {
     const activateAnimals = () => {
       setActiveElement('animals');
       setDados(dadosAnimais);
+      setWindowState(false);
     };
 
     const activatePosts = () => {
@@ -147,6 +148,7 @@ export default function Profile() {
 
   const saveItems = async () => {
     try {
+      setLoadingButton(true);
       // Verifique se houve alterações no name, tele, local ou email
       if (name === user.name && contact === user.contacto && place === user.localidade && email === user.email && pass === "") {
         Swal.fire('No changes were made.', '', 'info');
@@ -271,6 +273,7 @@ export default function Profile() {
   
       if (pass !== "") {
         const { success } = await handlePasswordChange(email);
+        setLoadingButton(false);
         if (success) {
           Swal.fire({
             title: 'Success',
@@ -284,6 +287,7 @@ export default function Profile() {
           });
         }
       } else {
+        setLoadingButton(false);
         // Exibir mensagem de sucesso sem logout, caso a senha não tenha sido alterada
         Swal.fire({
           title: 'Success',
@@ -292,7 +296,9 @@ export default function Profile() {
           confirmButtonText: 'OK',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.reload(); // Recarrega a página
+            setTimeout(() => {
+              window.location.reload();
+            },200);
           }
         });
       }

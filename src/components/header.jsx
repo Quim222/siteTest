@@ -39,7 +39,7 @@ export default function Header({page}) {
 
     const handleClick = (to, name) => {
         if (name === "Sign out") {
-          if(window.confirm('Deseja realmente sair?')) logout();
+          if(window.confirm('Are you sure you want to sign out?')) logout();
         } else {
             navigate(to);  // Navega para a rota especificada em item.to
         }

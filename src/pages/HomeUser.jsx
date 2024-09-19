@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../components/UserAuthContext';
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Typography, Button } from '@material-tailwind/react';
 import "./css/scrolbar.css"
 import CardCustom from '../components/card';
@@ -11,6 +11,7 @@ import Header from '../components/header';
 
 
 export default function HomeUser() {
+    const location = useLocation();
     const { logout, user } = useUserAuth();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,18 +57,33 @@ export default function HomeUser() {
     }, []);
 
     const handleFound = () => {
-      setLoadingButton(true);
-      setFoundState(true);
-      setMissingState(false);
-      setLoadingButton(false);
-    }
-
+      if (location.pathname.includes('/siteTest/home/')) {
+          navigate('/siteTest/home');
+      }
+  
+      setLoadingButton2(true); // Ativa o estado de carregamento
+      
+      // Simulando um tempo de carregamento, pode ser ajustado conforme a necessidade
+      setTimeout(() => {
+          setFoundState(true);
+          setMissingState(false);
+          setLoadingButton2(false); // Desativa o estado de carregamento após a execução
+      }, 300); // 500ms de atraso, ajuste se necessário
+    };
+    
     const handleMissing = () => {
-      setLoadingButton2(true);
-      setMissingState(true);
-      setFoundState(false);
-      setLoadingButton2(false);
-    }
+        if (location.pathname.includes('/siteTest/home/')) {
+            navigate('/siteTest/home');
+        }
+    
+        setLoadingButton(true); // Ativa o estado de carregamento
+    
+        setTimeout(() => {
+            setMissingState(true);
+            setFoundState(false);
+            setLoadingButton(false); // Desativa o estado de carregamento após a execução
+        }, 300); // 500ms de atraso, ajuste se necessário
+    };
 
 
   return (

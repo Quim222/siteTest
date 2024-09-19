@@ -3,6 +3,9 @@ import { Form, Link, useNavigate } from 'react-router-dom';
 import "./css/Login.css";
 import { useUserAuth } from '../components/UserAuthContext';
 import FooterComponent from '../components/FooterComponent';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../firebase';
+import Swal from 'sweetalert2';
 
 export default function Login() {
   const containerRef = useRef(null);
@@ -52,6 +55,45 @@ export default function Login() {
       console.log(e);
     }
   }
+
+  const forgotPass = async () => {
+    try {
+      if (email) {
+        sendPasswordResetEmail(FIREBASE_AUTH, email)
+          .then(() => {
+            Swal.fire({
+              title: 'Email sent',
+              text: 'Check your email to reset your password',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              setEmail("");  // Limpa o campo de email após o alerta de sucesso
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Email not registered or invalid email',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              setEmail("");  // Limpa o campo de email após o alerta de erro
+            });
+          });
+      } else {
+        Swal.fire({
+          title: 'Email not found',
+          text: 'Please enter a valid email',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+      }
+    } catch (error) {
+      console.log('Error sending email', error.message);
+    }
+  };
+  
 
 
   useEffect(() => {
@@ -103,9 +145,9 @@ export default function Login() {
           <Form onSubmit={handleSignIn} action="#">
             <h1 className='text-2xl'>Sign in</h1>
             {error && <h3 variant="danger">{error}</h3>}
-            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="password" placeholder="Password" onChange={(e) => setPass(e.target.value)}/>
-            <a href="#">Forgot your password?</a>
+            <a style={{cursor:'pointer'}} onClick={forgotPass}>Forgot your password?</a>
             <div className='flex flex-col gap-4 w-full items-center mt-4 md:justify-around md:flex-row'>
               <button>Sign In</button>
               <Link id='link' style={{color: 'white'}} to={'/siteTest/'}>Back</Link>

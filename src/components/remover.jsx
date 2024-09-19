@@ -21,29 +21,46 @@ export const removerMensagem = async (router) => {
 
 // Função para remover um animal específico da coleção "AnimalsUser"
 export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
+    let loadingSwal;
+
     try {
+        // Exibe a mensagem de loading
+        loadingSwal = Swal.fire({
+            title: 'Wait...',
+            text: 'Deleting animal...',
+            allowOutsideClick: false, // Impede o fechamento ao clicar fora
+            didOpen: () => {
+                Swal.showLoading(); // Mostra o indicador de loading
+            }
+        });
+
+        // Função para remover os documentos
         const q = query(collection(Database, 'AnimalsUser'), where('NomeAnimal', '==', nomeAnimal), where('RacaAnimal', '==', RacaAnimal));
         const querySnapshot = await getDocs(q);
-
         const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
         await Promise.all(deletePromises);
 
-        await removerPublicaçao(nomeAnimal, RacaAnimal,id);
+        // Funções adicionais
+        await removerPublicaçao(nomeAnimal, RacaAnimal, id);
         await removerImagem(imagem);
 
+        // Fecha o Swal de loading e mostra a mensagem de sucesso
+        Swal.close();
         Swal.fire({
-            title: 'Success',
-            text: 'Animal delete with success',
+            title: 'Sucesso!',
+            text: 'Animal excluído com sucesso.',
             icon: 'success',
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.isConfirmed) {
-              window.location.reload(); // Recarrega a página
+                window.location.reload(); // Recarrega a página
             }
         });
     } catch (error) {
         console.error("Erro ao remover animais: ", error);
-        Swal.fire("Error", "Error deleting animals", "error");
+        // Fecha o Swal de loading em caso de erro e mostra a mensagem de erro
+        if (loadingSwal) Swal.close();
+        Swal.fire("Erro", "Erro ao excluir o animal", "error");
     }
 };
 

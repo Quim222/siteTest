@@ -26,19 +26,17 @@ export default function CardCustom({index, data, onClick }) {
                 const city = data.address.city || data.address.town || data.address.village || data.address.state;
                 setAddress(city);
             } else {
-                Alert.alert('Erro', 'Nenhum endereço encontrado para essas coordenadas.');
+                window.alert('Erro', 'Nenhum endereço encontrado para essas coordenadas.');
             }
         } catch (error) {
             console.error(error);
-            Alert.alert('Erro', 'Falha ao buscar o endereço.');
-        } finally {
-            setLoading(false); // Termina o carregamento
+            window.alert('Erro', 'Falha ao buscar o endereço.');
         }
     };
 
     return (
         <div 
-            onClick={() => onClick(index)} // Chama a função de clique passando o ID
+            onClick={onClick ? () => onClick(index) : null} // Chama a função de clique passando o ID
             className='bg-[#f5f5f5]  p-4 rounded-lg flex flex-col gap-2 cursor-pointer hover:shadow-xl transition-shadow duration-300'
             >            
             <Typography variant='h1' className='text-2xl font-normal'>
