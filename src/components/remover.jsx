@@ -3,21 +3,7 @@ import { collection, query, where, getDocs, deleteDoc } from 'firebase/firestore
 import { ref, deleteObject } from 'firebase/storage';
 import { Database, FIREBASE_AUTH, storage } from '../../firebase';
 
-// Função para remover todas as mensagens da coleção "Message"
-export const removerMensagem = async (router) => {
-    try {
-        const q = query(collection(Database, 'Message'));
-        const querySnapshot = await getDocs(q);
 
-        const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
-        await Promise.all(deletePromises);
-
-        Swal.fire('Success', 'Coleção eliminada com sucesso.', 'success');
-    } catch (error) {
-        console.error('Erro ao remover mensagens: ', error);
-        Swal.fire('Error', 'Erro ao remover mensagens.', 'error');
-    }
-};
 
 // Função para remover um animal específico da coleção "AnimalsUser"
 export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
@@ -47,8 +33,8 @@ export const removerAnimal = async (nomeAnimal, RacaAnimal, imagem, id) => {
         // Fecha o Swal de loading e mostra a mensagem de sucesso
         Swal.close();
         Swal.fire({
-            title: 'Sucesso!',
-            text: 'Animal excluído com sucesso.',
+            title: 'Success',
+            text: 'Animal delete with success',
             icon: 'success',
             confirmButtonText: 'OK',
         }).then((result) => {
@@ -120,20 +106,4 @@ export const removerImagem = async (fileURL) => {
     }
 };
 
-// Função para remover um usuário
-export const removerUser = async (uid) => {
-    try {
-        const user = FIREBASE_AUTH.currentUser;
 
-        if (user && user.uid === uid) {
-            await deleteUser(user);
-            Swal.fire('Success', 'Usuário removido com sucesso', 'success');
-        } else {
-            console.error('Erro ao remover usuário: usuário não autenticado ou UID inválido');
-            Swal.fire('Error', 'Usuário não autenticado ou UID inválido', 'error');
-        }
-    } catch (error) {
-        console.error('Erro ao remover usuário:', error);
-        Swal.fire('Error', 'Erro ao remover usuário.', 'error');
-    }
-};
