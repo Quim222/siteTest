@@ -68,7 +68,7 @@ export default function About() {
                 <div className='flex flex-col items-end gap-2  '>
                     <Typography className='font-poppins text-[#bbb8b4]' variant='h1' size='xl' bold>Mission</Typography>
                     <Typography className='font-poppins' variant='p' color='gray' size='base' bold>
-                        This project includes an application that will help users find, assist, communicate, and share information with others. <br />
+                        This project  includes an application that will help users find, assist, communicate, and share information with others. <br />
                         With this application and website, we aim to help people avoid losing their pets and maintain hope in finding them.
                     </Typography>
                 </div>
